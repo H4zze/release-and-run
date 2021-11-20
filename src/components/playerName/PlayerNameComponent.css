@@ -1,0 +1,15 @@
+.player-name {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  column-gap: 4px;
+}
+
+.spec img {
+  height: 22px;
+  margin-right: 8px;
+}
+
+.name {
+  line-height: 22px;
+  text-transform: capitalize;
+}

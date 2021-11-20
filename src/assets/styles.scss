@@ -1,0 +1,157 @@
+$white-text: #eceff4;
+$dark-text: #3b4252;
+
+body {
+  background-color: #3b4252;
+  color: #eceff4;
+  font-size: 16px;
+  padding: 1.5rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin: 1.2rem 0 1rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin: 1.1rem 0 1rem;
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  h1.title {
+    text-align: center;
+  }
+}
+
+#main {
+  display: grid;
+  column-gap: 50px;
+  grid-template-columns: 250px 450px 1fr;
+}
+
+.signup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 20px;
+}
+
+.roster {
+  .slot {
+    background-color: $dark-text;
+    border-radius: 20px;
+    display: flex;
+    height: 22px;
+    padding: 8px 20px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #2e3440;
+    }
+  }
+
+  .comp {
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    margin: 25px 0;
+    row-gap: 10px;
+
+    div {
+      align-items: center;
+      display: flex;
+      font-size: 1.3em;
+    }
+    img {
+      height: 30px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.class-row {
+  margin-bottom: 10px;
+
+  .player {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    column-gap: 4px;
+    margin: 2px 0;
+
+    .button {
+      align-items: center;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+
+      &.inRoster {
+        background-color: #f56c6c;
+        color: $white-text;
+        &::before {
+          content: "-";
+        }
+      }
+
+      &:not(.inRoster) {
+        background-color: #a3be8c;
+        color: $dark-text;
+
+        &::before {
+          content: "+";
+        }
+      }
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    .spec {
+      height: 24px;
+      width: 100%;
+
+      img {
+        height: 100%;
+        max-height: 100%;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.fetch {
+  label {
+    color: $white-text;
+  }
+
+  .el-form {
+    align-items: center;
+    column-gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 92px auto;
+  }
+
+  .fetch-button-container {
+    padding-top: 10px;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.el-tabs__item {
+  color: $white-text;
+}
+
+.tools {
+  overflow: scroll;
+}
