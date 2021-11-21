@@ -70,24 +70,41 @@ export default class App extends Vue {
     ranged: 0,
   };
   signups: { [key: string]: Player[] } = {};
+  absences: string[] = [];
+  bench: Player[] = [];
   totalSignups = null;
-  raidId = "";
+  raidId = "908109834291933214";
   response = [];
   test = false;
   isSignupsLoading = false;
+  activeAssignmentsTab = "ssc";
 
   addToRoster(player: Player) {
+    const fillBench = () => {
+      this.classes.forEach((c) => {
+        const benchedClass = this.signups[c].filter((p) => !p.inRoster);
+        this.bench.push(...benchedClass);
+      });
+    };
     if (player.inRoster) {
       const index = this.roster.findIndex((p) => p.name === player.name);
       this.roster.splice(index, 1);
+      this.bench = [];
     } else {
-      this.roster.push(player);
+      if (this.roster.length >= 25) {
+        fillBench();
+      } else {
+        this.roster.push(player);
+        if (this.roster.length === 25) {
+          fillBench();
+        }
+      }
     }
     player.inRoster = !player.inRoster;
   }
 
-  mounted() {
-    console.log(process.env.VUE_APP_SERVER_URL);
+  addClassToRoster(className: string) {
+    this.signups[className].forEach((player) => this.addToRoster(player));
   }
 
   countSpecs(type: "tank" | "healer" | "meele" | "ranged") {
@@ -119,20 +136,25 @@ export default class App extends Vue {
       }).then((response) => {
         response.json().then((json) => {
           const parsedJson = JSON.parse(json);
+          console.log(parsedJson);
           this.totalSignups = parsedJson.Total;
           this.signups = parsedJson.Classes;
+          this.absences = parsedJson.Classes.absence.map(
+            (player: { name: string; className: string }) => player.name
+          );
           this.isSignupsLoading = false;
         });
       });
     }
   }
 
-  resetRoster() {
-    // this.raidId = "";
+  resetRoster(isRosterOnly: boolean = false) {
     this.roster = [];
     Object.keys(this.signups).forEach((key) => {
       this.signups[key].forEach((player) => (player.inRoster = false));
     });
-    this.signups = {};
+    if (!isRosterOnly) {
+      this.signups = {};
+    }
   }
 }

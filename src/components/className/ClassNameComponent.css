@@ -1,8 +1,18 @@
 .class-name {
+  align-items: center;
   display: flex;
   font-size: 1.4em;
   margin-bottom: 3px;
   text-transform: capitalize;
+  transition: all 0.2s ease-in-out;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.class-name.clickable:hover {
+  color: #5e81ac;
 }
 
 .class-name img {
