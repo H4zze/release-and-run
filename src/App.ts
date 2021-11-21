@@ -73,7 +73,7 @@ export default class App extends Vue {
   absences: string[] = [];
   bench: Player[] = [];
   totalSignups = null;
-  raidId = "908109834291933214";
+  raidId = "";
   response = [];
   test = false;
   isSignupsLoading = false;
