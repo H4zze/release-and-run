@@ -89,22 +89,46 @@ export default class App extends Vue {
     if (player.inRoster) {
       const index = this.roster.findIndex((p) => p.name === player.name);
       this.roster.splice(index, 1);
+      player.inRoster = false;
       this.bench = [];
     } else {
       if (this.roster.length >= 25) {
         fillBench();
       } else {
+        if (this.isBenched(player)) {
+          return;
+        }
         this.roster.push(player);
+        player.inRoster = true;
         if (this.roster.length === 25) {
           fillBench();
         }
       }
     }
-    player.inRoster = !player.inRoster;
   }
 
   addClassToRoster(className: string) {
     this.signups[className].forEach((player) => this.addToRoster(player));
+  }
+
+  addToBench(player: Player) {
+    if (!this.isBenched(player)) {
+      player.inRoster = false;
+      this.bench.push(player);
+      const index = this.roster.findIndex((p) => p.name === player.name);
+      if (index > -1) {
+        this.roster.splice(index, 1);
+      }
+    } else {
+      const index = this.bench.findIndex((p) => p.name === player.name);
+      if (index > -1) {
+        this.bench.splice(index, 1);
+      }
+    }
+  }
+
+  isBenched(player: Player): boolean {
+    return this.bench.map((b) => b.name).includes(player.name);
   }
 
   countSpecs(type: "tank" | "healer" | "meele" | "ranged") {
@@ -137,6 +161,7 @@ export default class App extends Vue {
         response.json().then((json) => {
           const parsedJson = JSON.parse(json);
           console.log(parsedJson);
+
           this.totalSignups = parsedJson.Total;
           this.signups = parsedJson.Classes;
           this.absences = parsedJson.Classes.absence.map(
@@ -150,6 +175,7 @@ export default class App extends Vue {
 
   resetRoster(isRosterOnly: boolean = false) {
     this.roster = [];
+    this.absences = [];
     Object.keys(this.signups).forEach((key) => {
       this.signups[key].forEach((player) => (player.inRoster = false));
     });

@@ -3,7 +3,7 @@
     <h1 class="title">Release and run</h1>
     <div id="main">
       <el-tabs type="card" class="flex-tab">
-        <el-tab-pane :label="`Roster (${roster.length})`">
+        <el-tab-pane label="Roster">
           <div class="roster-grid">
             <div class="roster">
               <div class="comp-wrapper">
@@ -115,13 +115,19 @@
                   v-for="player in signups[className]"
                   :key="player.name"
                   class="player"
-                  @click="addToRoster(player)"
                 >
+                  <div @click="addToRoster(player)">
+                    <PlayerNameComponent :player="player" />
+                    <div
+                      class="add-player-button"
+                      v-bind:class="{ inRoster: player.inRoster }"
+                    ></div>
+                  </div>
                   <div
-                    class="add-player-button"
-                    v-bind:class="{ inRoster: player.inRoster }"
+                    class="bench-player-button"
+                    @click="addToBench(player)"
+                    v-bind:class="{ onBench: isBenched(player) }"
                   ></div>
-                  <PlayerNameComponent :player="player" />
                 </div>
               </div>
             </div>
