@@ -49,12 +49,29 @@
                   </div>
                 </div>
               </div>
+              <!-- 913185089419083776 -->
               <ClassNameComponent :className="'raid'" :disableAdd="true" />
-              <div v-for="player of roster" :key="player.name" class="slot">
-                <PlayerNameComponent :player="player" />
-              </div>
-              <div v-for="slot of 25 - roster.length" :key="slot" class="slot">
-                {{ slot + roster.length }}
+              <div class="group">
+                <draggable
+                  v-model="roster"
+                  group="people"
+                  draggable=".roster-slot"
+                >
+                  <div
+                    v-for="player of roster"
+                    :key="player.name"
+                    class="slot roster-slot"
+                  >
+                    <PlayerNameComponent :player="player" />
+                  </div>
+                  <div
+                    v-for="slot of 25 - roster.length"
+                    :key="slot"
+                    class="slot"
+                  >
+                    {{ slot + roster.length }}
+                  </div>
+                </draggable>
               </div>
             </div>
             <hr v-if="bench.length > 0" />

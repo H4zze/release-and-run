@@ -5,9 +5,11 @@ import RoleNameComponent from "./components/roleName/RoleNameComponent.vue";
 import SerpentShrineCavernsComponent from "./components/raids/ssc/SerpentShrineCavernsComponent.vue";
 import TempestKeepComponent from "./components/raids/tk/TempestKeepComponent.vue";
 import { Player } from "./model/Player";
+import draggable from "vuedraggable";
 
 @Component({
   components: {
+    draggable,
     ClassNameComponent,
     PlayerNameComponent,
     RoleNameComponent,
@@ -93,7 +95,9 @@ export default class App extends Vue {
       this.bench = [];
     } else {
       if (this.roster.length >= 25) {
-        fillBench();
+        if (!this.isBenched(player)) {
+          this.bench.push(player);
+        }
       } else {
         if (this.isBenched(player)) {
           return;
@@ -108,7 +112,14 @@ export default class App extends Vue {
   }
 
   addClassToRoster(className: string) {
-    this.signups[className].forEach((player) => this.addToRoster(player));
+    if (this.roster.find((r) => r.className === className)) {
+      this.roster
+        .filter((r) => r.className === className)
+        .forEach((p) => (p.inRoster = false));
+      this.roster = this.roster.filter((r) => r.className !== className);
+    } else {
+      this.signups[className].forEach((player) => this.addToRoster(player));
+    }
   }
 
   addToBench(player: Player) {

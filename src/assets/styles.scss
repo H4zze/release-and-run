@@ -61,8 +61,6 @@ h2 {
       margin: 0;
     }
   }
-  .absence {
-  }
 }
 
 .roster-grid {
@@ -73,7 +71,18 @@ h2 {
     height: 22px;
     margin: 1px 0;
     padding: 2px 10px 2px 0px;
-    transition: all 0.3s ease-in-out;
+
+    &:nth-child(5n) {
+      margin-bottom: 15px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .roster-slot {
+    transition: background-color 0.3s ease-in-out;
 
     &:hover {
       background-color: #2e3440;
@@ -284,6 +293,12 @@ h2 {
 }
 
 .el-tabs__item.is-active {
+  color: $white-text;
+}
+
+.el-collapse-item__header,
+.el-collapse-item__wrap {
+  background-color: transparent;
   color: $white-text;
 }
 

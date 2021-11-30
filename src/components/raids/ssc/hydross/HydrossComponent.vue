@@ -1,10 +1,5 @@
 <template>
-  <div class="player-name">
-    <div class="spec">
-      <img :src="getSpecIcon(player.className, player.spec)" />
-    </div>
-    <div class="name">{{ player.name }}</div>
-  </div>
+  <div>Hydross</div>
 </template>
 <script src="./HydrossComponent.ts" />
 <style src="./HydrossComponent.css" />
