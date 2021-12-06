@@ -79,6 +79,10 @@ h2 {
     &:last-child {
       margin-bottom: 0;
     }
+
+    &.hover {
+      background-color: #2e3440;
+    }
   }
 
   .roster-slot {

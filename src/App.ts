@@ -80,11 +80,17 @@ export default class App extends Vue {
   test = false;
   isSignupsLoading = false;
   activeAssignmentsTab = "ssc";
+  futureItem: Player | null = null;
+  futureIndex = -1;
+  movingItem: Player | null = null;
+  movingIndex = -1;
 
   addToRoster(player: Player) {
     const fillBench = () => {
       this.classes.forEach((c) => {
-        const benchedClass = this.signups[c].filter((p) => !p.inRoster);
+        const benchedClass = this.signups[c].filter(
+          (p) => !p.inRoster && !this.bench.map((b) => b.name).includes(p.name)
+        );
         this.bench.push(...benchedClass);
       });
     };
@@ -193,5 +199,39 @@ export default class App extends Vue {
     if (!isRosterOnly) {
       this.signups = {};
     }
+  }
+
+  handleDragEnd() {
+    this.futureItem = this.roster[this.futureIndex];
+    this.movingItem = this.roster[this.movingIndex];
+    const _roster = Object.assign([] as Player[], this.roster);
+    _roster[this.futureIndex] = this.movingItem;
+    _roster[this.movingIndex] = this.futureItem;
+
+    this.roster = _roster;
+  }
+
+  handleMove(e: any) {
+    const { index, futureIndex } = e.draggedContext;
+    this.movingIndex = index;
+    this.futureIndex = futureIndex;
+    return false; // disable sort
+  }
+
+  addDragEnterEffect(e: DragEvent) {
+    const target = e.target as HTMLElement;
+    const div = target.closest(".slot") as HTMLElement;
+    div.classList.add("hover");
+  }
+
+  removeDragEnterEffect(e: DragEvent) {
+    const target = e.target as HTMLElement;
+    const div = target.closest(".slot") as HTMLElement;
+    div.classList.remove("hover");
+  }
+
+  clearDragEffect() {
+    const hovers = document.querySelectorAll<HTMLElement>(".slot.hover");
+    hovers.forEach((h) => h.classList.remove("hover"));
   }
 }

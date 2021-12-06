@@ -54,13 +54,17 @@
               <div class="group">
                 <draggable
                   v-model="roster"
-                  group="people"
                   draggable=".roster-slot"
+                  :move="handleMove"
+                  @end="handleDragEnd"
                 >
                   <div
                     v-for="player of roster"
                     :key="player.name"
                     class="slot roster-slot"
+                    @dragenter="addDragEnterEffect"
+                    @dragleave="removeDragEnterEffect"
+                    @dragend="clearDragEffect"
                   >
                     <PlayerNameComponent :player="player" />
                   </div>
