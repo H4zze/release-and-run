@@ -33,6 +33,9 @@
                     />
                   </div>
                 </div>
+              </div>
+              <div class="roster-header">
+                <ClassNameComponent :className="'raid'" :disableAdd="true" />
                 <div class="buttons">
                   <div>
                     <el-button type="success" size="mini" disabled
@@ -49,8 +52,6 @@
                   </div>
                 </div>
               </div>
-              <!-- 913185089419083776 -->
-              <ClassNameComponent :className="'raid'" :disableAdd="true" />
               <div class="group">
                 <draggable
                   v-model="roster"
@@ -160,6 +161,16 @@
                   v-if="absences.length > 0"
                 />
                 <div v-for="player in absences" :key="player" class="player">
+                  {{ player }}
+                </div>
+              </div>
+              <div class="tentative">
+                <ClassNameComponent
+                  :className="'tentative'"
+                  :disableAdd="true"
+                  v-if="tentatives.length > 0"
+                />
+                <div v-for="player in tentatives" :key="player" class="player">
                   {{ player }}
                 </div>
               </div>

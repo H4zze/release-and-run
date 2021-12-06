@@ -98,23 +98,22 @@ h2 {
       display: flex;
       flex-direction: row;
       gap: 10px;
-      justify-content: space-between;
+      justify-content: center;
 
       .comp {
         display: grid;
-        column-gap: 20px;
-        grid-template-columns: repeat(2, 65px);
-        // justify-items: center;
+        column-gap: 0px;
+        grid-template-columns: repeat(4, 50px);
         margin: 0 0 10px;
         row-gap: 5px;
 
         div {
           align-items: center;
           display: flex;
-          font-size: 1.3em;
+          font-size: 1.2em;
         }
         img {
-          height: 30px;
+          height: 20px;
           margin-right: 8px;
           &:nth-child(2n + 1) {
             float: right;
@@ -126,11 +125,18 @@ h2 {
           }
         }
       }
+    }
+
+    .roster-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
 
       .buttons {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 5px;
+        margin-bottom: 3px;
 
         button {
           height: 30px;

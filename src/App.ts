@@ -73,6 +73,7 @@ export default class App extends Vue {
   };
   signups: { [key: string]: Player[] } = {};
   absences: string[] = [];
+  tentatives: string[] = [];
   bench: Player[] = [];
   totalSignups = null;
   raidId = "";
@@ -180,10 +181,15 @@ export default class App extends Vue {
           console.log(parsedJson);
 
           this.totalSignups = parsedJson.Total;
-          this.signups = parsedJson.Classes;
-          this.absences = parsedJson.Classes.absence.map(
-            (player: { name: string; className: string }) => player.name
-          );
+          const classesOnly = Object.assign({}, parsedJson.Classes);
+
+          delete classesOnly.absence;
+          delete classesOnly.tentative;
+
+          this.signups = classesOnly;
+
+          this.absences = parsedJson.Classes.absence;
+          this.tentatives = parsedJson.Classes.tentative;
           this.isSignupsLoading = false;
         });
       });
@@ -193,6 +199,7 @@ export default class App extends Vue {
   resetRoster(isRosterOnly: boolean = false) {
     this.roster = [];
     this.absences = [];
+    this.tentatives = [];
     Object.keys(this.signups).forEach((key) => {
       this.signups[key].forEach((player) => (player.inRoster = false));
     });
