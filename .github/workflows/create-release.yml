@@ -21,9 +21,6 @@ jobs:
           git push origin v$VERSION
 
       - name: Create release
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: ncipollo/release-action@v1
         with:
-          automatic_release_tag: "latest"
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          draft: true
+          generateReleaseNotes: true
