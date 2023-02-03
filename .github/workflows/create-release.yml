@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Parse version
         run: |
-          echo "VERSION=$(sed -En "s/('version' => ){1}'(.*)',$/\2/gp" src/assets/version.txt)" >> $GITHUB_ENV
+          echo "VERSION=$(sed -En "s/^(\s*'version'\s=>\s){1}'(.*)',$/\2/p" src/assets/timewave.php)" >> $GITHUB_ENV
 
       - name: Create tag
         run: |
