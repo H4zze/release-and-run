@@ -2,7 +2,7 @@
 
 return array(
     // Version (is also used to prevent using of cached js files on update)
-    'version' => '2.6.7',
+    'version' => '2.6.8',
     // Show the shortcuts bar in footer
     'shortcuts' => true,
 );
