@@ -1,0 +1,19 @@
+name: Deploy
+on: push
+
+jobs:
+  install-dependencies:
+    name: Install openfortivpn
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install openfortivpn
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openfortivpn
+
+  test-vpn:
+    name: Is it installed?
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test VPN
+        run: openfortivpn --help
