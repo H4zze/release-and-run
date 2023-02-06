@@ -13,6 +13,7 @@ jobs:
 
   test-vpn:
     name: Is it installed?
+    needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Test VPN
